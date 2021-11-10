@@ -1,49 +1,11 @@
 import logging
+import json
 import uuid
 import logging.config
 
-# logging.config.fileConfig('conf/conf.json')
-#
-# with open('conf/conf.json', 'r', encoding='utf-8') as f:
-#     conf_file = f.read()
-#
-# logging.config.dictConfig(conf_file)
-import uuid
-
-logging.config.dictConfig(
-    {
-        "version": 1,
-        "formatters": {
-            "sampleFormatter": {
-                "format": "%(asctime)s %(name)-12s %(levelname)-8s %(name)-15s %(message)s",
-                'datefmt': '%Y-%m-%d %H:%M:%S'
-            }
-        },
-        "handlers": {
-            "sampleHandlers": {
-                "class": "logging.StreamHandler",
-                "formatter": "sampleFormatter",
-                "level": logging.DEBUG,
-            }
-        },
-        "root": {
-            "handlers": ["sampleHandlers"],
-            "level": logging.WARNING
-        },
-        "loggers": {
-            "simpleExample": {
-                "handlers": ["sampleHandlers"],
-                "level": logging.DEBUG,
-                "propagate": 0
-            },
-            "simpleExample2": {
-                "handlers": ["sampleHandlers"],
-                "level": logging.CRITICAL,
-                "propagate": 0
-            },
-        }
-    }
-)
+with open('conf/conf.json', 'r', encoding='utf-8') as f:
+    f_ = json.load(f)
+    logging.config.dictConfig(f_)
 
 if __name__ == '__main__':
     id_ = uuid.uuid4()
