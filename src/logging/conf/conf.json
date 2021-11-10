@@ -1,8 +1,9 @@
 {
-  "version1": 1,
+  "version": 1,
   "formatters": {
     "sampleFormatter": {
-      "format": "%(asctime)s %(levelname)-8s %(name)-15s %(message)s"
+      "format": "%(asctime)s %(name)-12s %(levelname)-8s %(name)-15s %(message)s",
+      "datefmt": "Y-%m-%d %H:%M:%S"
     }
   },
   "handlers": {
@@ -13,13 +14,24 @@
     }
   },
   "root": {
-    "handlers": "sampleHandlers",
+    "handlers": [
+      "sampleHandlers"
+    ],
     "level": "WARNING"
   },
   "loggers": {
     "simpleExample": {
-      "handlers": "sampleHandlers",
+      "handlers": [
+        "sampleHandlers"
+      ],
       "level": "DEBUG",
+      "propagate": 0
+    },
+    "simpleExample2": {
+      "handlers": [
+        "sampleHandlers"
+      ],
+      "level": "CRITICAL",
       "propagate": 0
     }
   }
