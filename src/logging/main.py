@@ -45,17 +45,18 @@ logging.config.dictConfig(
     }
 )
 
-id_ = uuid.uuid4()
+if __name__ == '__main__':
+    id_ = uuid.uuid4()
 
-# logger = logging.getLogger(__name__)
-logger = logging.getLogger('simpleExample')
+    # logger = logging.getLogger(__name__)
+    logger = logging.getLogger('simpleExample')
 
-logger.debug(
-    {'debug': 'debug message',
-     'id': id_,
-     }
-)
-logger.info('info')
-logger.warning('warning')
-logger.error('error')
-logger.critical('critical')
+    logger.debug(
+        {'debug': 'debug message',
+         'id': id_,
+         }
+    )
+    logger.info('info')
+    logger.warning('warning')
+    logger.error('error')
+    logger.critical('critical')
