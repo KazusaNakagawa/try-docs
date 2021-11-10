@@ -15,7 +15,9 @@ logging.config.dictConfig(
         "version": 1,
         "formatters": {
             "sampleFormatter": {
-                "format": "%(asctime)s %(name)-12s %(levelname)-8s %(name)-15s %(message)s"}
+                "format": "%(asctime)s %(name)-12s %(levelname)-8s %(name)-15s %(message)s",
+                'datefmt': '%Y-%m-%d %H:%M:%S'
+            }
         },
         "handlers": {
             "sampleHandlers": {
@@ -24,7 +26,6 @@ logging.config.dictConfig(
                 "level": logging.DEBUG,
             }
         },
-
         "root": {
             "handlers": ["sampleHandlers"],
             "level": logging.WARNING
