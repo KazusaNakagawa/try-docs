@@ -1,0 +1,26 @@
+{
+  "version1": 1,
+  "formatters": {
+    "sampleFormatter": {
+      "format": "%(asctime)s %(levelname)-8s %(name)-15s %(message)s"
+    }
+  },
+  "handlers": {
+    "sampleHandlers": {
+      "class": "logging.StreamHandler",
+      "formatter": "sampleFormatter",
+      "level": "DEBUG"
+    }
+  },
+  "root": {
+    "handlers": "sampleHandlers",
+    "level": "WARNING"
+  },
+  "loggers": {
+    "simpleExample": {
+      "handlers": "sampleHandlers",
+      "level": "DEBUG",
+      "propagate": 0
+    }
+  }
+}
