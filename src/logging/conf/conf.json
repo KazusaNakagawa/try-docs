@@ -3,7 +3,7 @@
   "formatters": {
     "sampleFormatter": {
       "format": "%(asctime)s %(name)-12s %(levelname)-8s %(name)-15s %(message)s",
-      "datefmt": "Y-%m-%d %H:%M:%S"
+      "datefmt": "%Y-%m-%d %H:%M:%S"
     }
   },
   "handlers": {
@@ -20,14 +20,14 @@
     "level": "WARNING"
   },
   "loggers": {
-    "simpleExample": {
+    "simpleDebug": {
       "handlers": [
         "sampleHandlers"
       ],
       "level": "DEBUG",
       "propagate": 0
     },
-    "simpleExample2": {
+    "simpleCritical": {
       "handlers": [
         "sampleHandlers"
       ],
