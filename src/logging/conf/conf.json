@@ -1,37 +1,45 @@
 {
   "version": 1,
   "formatters": {
-    "sampleFormatter": {
-      "format": "%(asctime)s %(name)-12s %(levelname)-8s %(name)-15s %(message)s",
+    "defaultFormatter": {
+      "format": "%(asctime)s %(name)-15s %(levelname)-8s %(message)s",
       "datefmt": "%Y-%m-%d %H:%M:%S"
+    },
+    "userFormatter": {
+      "format": "%(asctime)s %(name)-15s %(levelname)-8s user_id: %(user_id)-5s %(message)s"
     }
   },
   "handlers": {
-    "sampleHandlers": {
+    "defaultHandlers": {
       "class": "logging.StreamHandler",
-      "formatter": "sampleFormatter",
+      "formatter": "defaultFormatter",
+      "level": "DEBUG"
+    },
+    "userHandlers": {
+      "class": "logging.StreamHandler",
+      "formatter": "userFormatter",
       "level": "DEBUG"
     }
   },
   "root": {
     "handlers": [
-      "sampleHandlers"
+      "defaultHandlers"
     ],
     "level": "WARNING"
   },
   "loggers": {
-    "simpleDebug": {
+    "simpleDefault": {
       "handlers": [
-        "sampleHandlers"
+        "defaultHandlers"
       ],
-      "level": "DEBUG",
+      "level": "INFO",
       "propagate": 0
     },
-    "simpleCritical": {
+    "simpleUser": {
       "handlers": [
-        "sampleHandlers"
+        "userHandlers"
       ],
-      "level": "CRITICAL",
+      "level": "DEBUG",
       "propagate": 0
     }
   }
