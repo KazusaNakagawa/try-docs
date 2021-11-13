@@ -1,0 +1,9 @@
+2021-11-14 00:21:21 root            WARNING  warning message
+2021-11-14 00:21:21 root            ERROR    error message
+2021-11-14 00:21:21 root            CRITICAL critical message
+2021-11-14 00:21:33 root            WARNING  warning message
+2021-11-14 00:21:33 root            ERROR    error message
+2021-11-14 00:21:33 root            CRITICAL critical message
+2021-11-14 00:21:34 root            WARNING  warning message
+2021-11-14 00:21:34 root            ERROR    error message
+2021-11-14 00:21:34 root            CRITICAL critical message
