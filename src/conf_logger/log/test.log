@@ -1,0 +1,8 @@
+2021-11-28 22:18:15 simpleDefault   :INFO          :Test1 Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-11-28 22:18:15 simpleDefault   :WARNING       :Test2 Message user_id: 1 tr_id: 2 param_id: 3
+2021-11-28 22:18:15 simpleDefault   :ERROR         :Test3 Message user_id: 1 tr_id: ID0001
+2021-11-28 22:18:15 simpleDefault   :CRITICAL      :critical message Test1 Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-11-28 22:19:42 simpleDefault   :INFO          :Test1 Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-11-28 22:19:42 simpleDefault   :WARNING       :Test2 Message user_id: 1 tr_id: 2 param_id: 3
+2021-11-28 22:19:42 simpleDefault   :ERROR         :Test3 Message user_id: 36fc1b2c-2616-4c47-af61-a9409a243019 tr_id: ID0001
+2021-11-28 22:19:42 simpleDefault   :CRITICAL      :critical message Test1 Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
