@@ -63,21 +63,30 @@ def test2():
 
     # 指定 logger名
     logger = get_logger(logger_=_EXEC_FILE_NAME)
-    # logger = get_logger(logger_='testfile')
 
     # message definition file set/get
     set_conf_ = set_conf()
-    msg1 = get_conf(conf=set_conf_, sec='message', option='EAP0001', format1=[1, 2, 3], format2=[1, 2, 3])
-    msg2 = get_conf(conf=set_conf_, sec='message', option='EAP0002', format1=[1, 2, 3])
+    msg1 = get_conf(conf=set_conf_, sec='message', option='DAP0001', format1=[1, 2, 3], format2=[1, 2, 3])
+    logger.debug(msg1)
+
+    msg2 = get_conf(conf=set_conf_, sec='message', option='IAP0001', format1=[1, 2, 3], format2=[1, 2, 3])
+    logger.info(msg2)
+
+    msg3 = get_conf(conf=set_conf_, sec='message', option='WAP0001', format1=[1, 2, 3], format2=[1, 2, 3])
+    logger.warning(msg3)
+
+    msg4 = get_conf(conf=set_conf_, sec='message', option='EAP0001', format1=[1, 2, 3], format2=[1, 2, 3])
+    logger.error(msg4)
+
+    msg5 = get_conf(conf=set_conf_, sec='message', option='CAP0001', format1=[1, 2, 3], format2=[1, 2, 3])
+    logger.critical(msg5)
+
+    msg6 = get_conf(conf=set_conf_, sec='message', option='CAP0002', format1=[1, 2, 3])
+    logger.critical(msg6)
 
     user_id = get_user_id(uuid.uuid4())
-    msg3 = get_conf(conf=set_conf_, sec='message', option='EAP0003', format1=[user_id, "ID0001"])
-
-    logger.debug(msg1)
-    logger.info(msg1)
-    logger.warning(msg2)
-    logger.error(msg3)
-    logger.critical(f'critical message {msg1}')
+    msg7 = get_conf(conf=set_conf_, sec='message', option='EAP0003', format1=[user_id, "ID0001"])
+    logger.critical(msg7)
 
 
 def mulch_handler_set():
