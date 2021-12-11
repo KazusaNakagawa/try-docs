@@ -57,12 +57,14 @@ def test1():
 
 def test2():
     """ Run """
-    read_conf_file(conf_file='conf/conf.json')
+    # read_conf_file(conf_file='conf/conf.json')
     # read_conf_file(conf_file='conf/syslog.json')
     # read_conf_file(conf_file='conf/filehandler.json')
+    # read_conf_file(conf_file='conf/file_stream_handler.json')
+    read_conf_file(conf_file='conf/mulch.json')
 
     # 指定 logger 読み込み
-    logger = get_logger(logger_='simpleDefault')
+    logger = get_logger(logger_='root')
 
     user_id = get_user_id(uuid.uuid4())
 
@@ -121,8 +123,32 @@ def mulch_handler():
     logging.critical(msg1)
 
 
+def sample_python_doc():
+    logger = logging.getLogger(os.path.basename(__file__)[:-3])
+    logger.setLevel(logging.DEBUG)
+
+    # create file handler which logs even debug messages
+    fh = logging.FileHandler('./log/spam.log')
+    fh.setLevel(logging.DEBUG)
+
+    # create console handler with a higher log level
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.ERROR)
+
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+    fh.setFormatter(formatter)
+
+    # add the handlers to logger
+    logger.addHandler(ch)
+    logger.addHandler(fh)
+
+    return logger
+
+
 if __name__ == '__main__':
     pass
-    mulch_handler()
-    # test1()
-    # test2()
+    # mulch_handler()
+    test2()
+
