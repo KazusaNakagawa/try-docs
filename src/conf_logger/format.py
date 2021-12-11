@@ -3,6 +3,10 @@ import json
 import logging
 import uuid
 
+import os
+from logging import StreamHandler, FileHandler, Formatter
+from logging import INFO, DEBUG, NOTSET
+
 import logging.config
 
 
@@ -35,7 +39,7 @@ def get_conf(conf, sec: str, option: str, format1=None, format2=None):
     return conf.format(format1, format2)
 
 
-def test_():
+def test1():
     set_conf_ = set_conf()
     msg = get_conf(conf=set_conf_, sec='message', option='EAP0001', format1=[1, 2, 3], format2=[1, 2, 3])
     logging.error(msg)
@@ -51,7 +55,7 @@ def test_():
     logging.critical(msg)
 
 
-def main():
+def test2():
     """ Run """
     read_conf_file(conf_file='conf/conf.json')
     # read_conf_file(conf_file='conf/syslog.json')
@@ -75,5 +79,50 @@ def main():
     logger.critical(f'critical message {msg1}')
 
 
+def mulch_handler_set():
+    # 保存先の有無チェック
+    _LOG_LEVEL = DEBUG
+
+    if not os.path.isdir('./Log'):
+        os.makedirs('./Log', exist_ok=True)
+
+    # ファイルハンドラの設定
+    file_handler = FileHandler(
+        # f"./Log/log{datetime.now():%Y%m%d%H%M%S}.log"
+        f"./Log/log"
+    )
+    file_handler.setLevel(_LOG_LEVEL)
+    file_handler.setFormatter(
+        Formatter("%(asctime)s %(name)-15s %(levelname)-13s %(message)s　%(process)d")
+    )
+    # ストリームハンドラの設定
+    stream_handler = StreamHandler()
+    stream_handler.setLevel(_LOG_LEVEL)
+    stream_handler.setFormatter(Formatter("%(asctime)s %(name)-15s %(levelname)-13s %(message)s　%(process)d"))
+    # ルートロガーの設定
+    logging.basicConfig(level=_LOG_LEVEL, handlers=[stream_handler, file_handler])
+
+
+def mulch_handler():
+    # message definition file set/get
+    mulch_handler_set()
+
+    set_conf_ = set_conf()
+    msg1 = get_conf(conf=set_conf_, sec='message', option='EAP0001', format1=[1, 2, 3], format2=[1, 2, 3])
+    msg2 = get_conf(conf=set_conf_, sec='message', option='EAP0002', format1=[1, 2, 3])
+    # user_id = get_user_id(uuid.uuid4())
+    # msg3 = get_conf(conf=set_conf_, sec='message', option='EAP0003', format1=[user_id, "ID0001"])
+
+    # 出力テスト
+    logging.debug(msg1)
+    logging.info(msg2)
+    logging.warning(msg1)
+    logging.error(msg2)
+    logging.critical(msg1)
+
+
 if __name__ == '__main__':
-    main()
+    pass
+    mulch_handler()
+    # test1()
+    # test2()
