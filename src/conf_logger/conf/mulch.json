@@ -16,26 +16,27 @@
     "file": {
       "class": "logging.FileHandler",
       "filename": "log/mplog.log",
-      "mode": "w",
+      "mode": "a",
       "formatter": "detailed"
     },
-    "foofile": {
+    "testfile": {
       "class": "logging.FileHandler",
-      "filename": "log/mplog-foo.log",
-      "mode": "w",
+      "filename": "log/testfile.log",
+      "level": "ERROR",
+      "mode": "a",
       "formatter": "detailed"
     },
     "errors": {
       "class": "logging.FileHandler",
       "filename": "log/mplog-errors.log",
-      "mode": "w",
+      "mode": "a",
       "level": "ERROR",
       "formatter": "detailed"
      }
   },
   "loggers": {
-    "foo": {
-      "handlers": ["foofile"]
+    "testfile": {
+      "handlers": ["testfile"]
     }
   },
   "root": {
