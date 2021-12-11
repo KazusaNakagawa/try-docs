@@ -9,6 +9,8 @@ from logging import INFO, DEBUG, NOTSET
 
 import logging.config
 
+_EXEC_FILE_NAME = os.path.basename(__file__)[:-3]
+
 
 def read_conf_file(conf_file='conf/conf.json'):
     """ Loading a format file """
@@ -57,21 +59,18 @@ def test1():
 
 def test2():
     """ Run """
-    # read_conf_file(conf_file='conf/conf.json')
-    # read_conf_file(conf_file='conf/syslog.json')
-    # read_conf_file(conf_file='conf/filehandler.json')
-    # read_conf_file(conf_file='conf/file_stream_handler.json')
     read_conf_file(conf_file='conf/mulch.json')
 
-    # 指定 logger 読み込み
-    logger = get_logger(logger_='root')
-
-    user_id = get_user_id(uuid.uuid4())
+    # 指定 logger名
+    logger = get_logger(logger_=_EXEC_FILE_NAME)
+    # logger = get_logger(logger_='testfile')
 
     # message definition file set/get
     set_conf_ = set_conf()
     msg1 = get_conf(conf=set_conf_, sec='message', option='EAP0001', format1=[1, 2, 3], format2=[1, 2, 3])
     msg2 = get_conf(conf=set_conf_, sec='message', option='EAP0002', format1=[1, 2, 3])
+
+    user_id = get_user_id(uuid.uuid4())
     msg3 = get_conf(conf=set_conf_, sec='message', option='EAP0003', format1=[user_id, "ID0001"])
 
     logger.debug(msg1)
@@ -124,7 +123,7 @@ def mulch_handler():
 
 
 def sample_python_doc():
-    logger = logging.getLogger(os.path.basename(__file__)[:-3])
+    logger = logging.getLogger(_EXEC_FILE_NAME)
     logger.setLevel(logging.DEBUG)
 
     # create file handler which logs even debug messages
@@ -151,4 +150,3 @@ if __name__ == '__main__':
     pass
     # mulch_handler()
     test2()
-
