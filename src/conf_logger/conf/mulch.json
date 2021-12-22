@@ -19,6 +19,12 @@
       "mode": "a",
       "formatter": "detailed"
     },
+    "time": {
+      "class": "logging.handlers.TimedRotatingFileHandler",
+      "filename": "log/time_rota.log",
+      "when": "M",
+      "formatter": "detailed"
+    },
     "testfile": {
       "class": "logging.FileHandler",
       "filename": "log/testfile.log",
@@ -41,6 +47,6 @@
   },
   "root": {
     "level": "DEBUG",
-    "handlers": ["console", "file", "errors"]
+    "handlers": ["console", "file", "time", "errors"]
   }
 }
