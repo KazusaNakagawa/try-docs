@@ -1,0 +1,7 @@
+2021-12-14 00:44:00 format          DEBUG         Debug Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-14 00:44:00 format          INFO          Info Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-14 00:44:00 format          WARNING       Warning Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-14 00:44:00 format          ERROR         Error Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-14 00:44:00 format          CRITICAL      Critical Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-14 00:44:00 format          CRITICAL      Critical Message user_id: 1 tr_id: 2 param_id: 3
+2021-12-14 00:44:00 format          CRITICAL      Error Message user_id: 7a3c4fbf-2e54-43fc-abd2-f6d64ddc2a01 tr_id: ID0001

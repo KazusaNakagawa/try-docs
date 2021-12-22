@@ -1,0 +1,14 @@
+2021-12-22 10:52:11 format          DEBUG         Debug Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-22 10:52:11 format          INFO          Info Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-22 10:52:11 format          WARNING       Warning Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-22 10:52:11 format          ERROR         Error Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-22 10:52:11 format          CRITICAL      Critical Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-22 10:52:11 format          CRITICAL      Critical Message user_id: 1 tr_id: 2 param_id: 3
+2021-12-22 10:52:11 format          CRITICAL      Error Message user_id: b221a449-75bf-40f7-8bb9-e6f6922d0923 tr_id: ID0001
+2021-12-22 10:52:31 format          DEBUG         Debug Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-22 10:52:31 format          INFO          Info Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-22 10:52:31 format          WARNING       Warning Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-22 10:52:31 format          ERROR         Error Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-22 10:52:31 format          CRITICAL      Critical Message user_id: 1 tr_id: 2 param_id: 3 err_id: 1
+2021-12-22 10:52:31 format          CRITICAL      Critical Message user_id: 1 tr_id: 2 param_id: 3
+2021-12-22 10:52:31 format          CRITICAL      Error Message user_id: 5077f8a6-f124-40b6-9849-a905a3b7dd19 tr_id: ID0001
