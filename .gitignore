@@ -5,3 +5,9 @@ log/
 
 .pytest_cache
 __pycache__/
+
+# extension
+*.csv
+*.txt
+*.xlsx
+*.zip
