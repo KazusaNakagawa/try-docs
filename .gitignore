@@ -1,13 +1,15 @@
 venv/
+.pytest_cache
+__pycache__/
 
 # log file
 log/
-
-.pytest_cache
-__pycache__/
 
 # extension
 *.csv
 *.txt
 *.xlsx
 *.zip
+
+# token directory
+*/token/
