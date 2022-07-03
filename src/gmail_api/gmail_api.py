@@ -1,11 +1,12 @@
+import base64
 import pickle
 import os.path
+
+from apiclient import errors
+from email.mime.text import MIMEText
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-import base64
-from email.mime.text import MIMEText
-from apiclient import errors
 
 import const
 
@@ -13,6 +14,12 @@ import const
 class GmailApi(object):
 
     def __init__(self, sender, to):
+        """ gmail operations with the Gmail API
+
+        :param
+          sender(str): Sender Address
+          to(str): To Address
+        """
         self.scope = ['https://www.googleapis.com/auth/gmail.send']
         self.sender = sender
         self.to = to
