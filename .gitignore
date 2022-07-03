@@ -12,7 +12,7 @@ log/
 *.zip
 
 # token directory
-*/token/
+token/
 
 # envriments
 .env
