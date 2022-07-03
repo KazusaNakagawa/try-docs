@@ -13,3 +13,7 @@ log/
 
 # token directory
 */token/
+
+# envriments
+.env
+
