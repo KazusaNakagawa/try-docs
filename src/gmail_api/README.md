@@ -7,7 +7,7 @@
 - Python 3.9.1
 - Mac M1
 
-## 操作
+## 手順
 
 1. 必要なファイル・環境変数を準備
   ```bash
@@ -18,9 +18,14 @@
   SENDER_ADDRESS=<送信者メールアドレス>
   TO_ADDRESS=<送信先メールアドレス>
   ```
-2. `gmail_api.py` を実行する
+2. package install
+  ```bash
+  pip install -r requirements.txt
+  ```
 
-3. メール送信されたか確認する
+3. `gmail_api.py` を実行する
+
+4. メール送信されたか確認する
 
 
 ## 参考
