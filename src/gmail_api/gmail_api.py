@@ -7,8 +7,9 @@ from email.mime.text import MIMEText
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-
-import const
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from os.path import basename
 
 
 class GmailApi(object):
@@ -58,6 +59,42 @@ class GmailApi(object):
 
         return {'raw': encode_message.decode()}
 
+    def create_message_attach_file(self, subject, message_text):
+        """ メール本文の作成 添付ファイルつき """
+
+        msg = self._attach_file()
+
+        msg['to'] = self.to
+        msg['from'] = self.sender
+        msg['subject'] = subject
+
+        # ファイルを添付
+        msg.attach(MIMEText(message_text))
+        encode_message = base64.urlsafe_b64encode(msg.as_bytes())
+
+        return {'raw': encode_message.decode()}
+
+    def _attach_file(self, attach_file_path="../zip_try/archive_with_pass.zip"):
+        """ ファイルを添付
+
+        :param
+          attach_file_path(str): 添付対象ファイル path
+
+        :return
+          msg(class: email.mime.multipart.MIMEMultipart)
+        """
+
+        msg = MIMEMultipart()
+        with open(attach_file_path, "rb") as f:
+            part = MIMEApplication(
+                f.read(),
+                Name=basename(attach_file_path)
+            )
+        part['Content-Disposition'] = f"attachment; filename={basename(attach_file_path)}"
+        msg.attach(part)
+
+        return msg
+
     def send_message(self, user_id, msg):
         """ メール送信の実行 """
         try:
@@ -68,14 +105,3 @@ class GmailApi(object):
             return msg
         except errors.HttpError as error:
             print(f"An error occurred: {error}")
-
-
-if __name__ == '__main__':
-    gmail_api = GmailApi(sender=const.SENDER_ADDRESS, to=const.TO_ADDRESS)
-
-    # メール本文の作成
-    subject = 'メール送信自動化テスト_ Class Gmail API'
-    message_text = 'メール送信の自動化テストをしています。'
-    message = gmail_api.create_message(subject_=subject, msg_text=message_text)
-
-    gmail_api.send_message(user_id='me', msg=message)

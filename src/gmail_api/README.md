@@ -23,7 +23,7 @@
   pip install -r requirements.txt
   ```
 
-3. `gmail_api.py` を実行する
+3. `main.py` を実行する
 
 4. メール送信されたか確認する
 
