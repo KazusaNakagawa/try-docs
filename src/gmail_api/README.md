@@ -1,7 +1,8 @@
 ## Gmail API
 
 ## 前提
-- Gmail API で プロジェクト作成し、OAuth 2.0 クライアントの JSONファイルを用意
+- [Google Cloud](https://console.cloud.google.com/) で プロジェクト作成し、OAuth 2.0 クライアントの JSONファイルを用意
+- [Gmail API](https://console.cloud.google.com/marketplace/product/google/gmail.googleapis.com) の有効化
 
 ## 実行環境
 - Python 3.9.1
@@ -10,8 +11,8 @@
 ## 手順
 
 1. 必要なファイル・環境変数を準備
-  ```bash
-  # .token/credentials.json
+  ```bashq
+  # ./token/credentials.json
   > OAuth 2.0 クライアントの JSONファイル
   
   # .env
