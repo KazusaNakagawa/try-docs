@@ -11,7 +11,7 @@
 ## 手順
 
 1. 必要なファイル・環境変数を準備
-  ```bashq
+  ```bash
   # ./token/credentials.json
   > OAuth 2.0 クライアントの JSONファイル
   
