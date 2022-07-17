@@ -1,52 +1,28 @@
 import base64
-import pickle
-import os.path
 
 from apiclient import errors
 from email.mime.text import MIMEText
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from os.path import basename
 
+from client_service import ClientService
 
-class GmailApi(object):
+
+class GmailApi(ClientService):
 
     def __init__(self, sender, to):
+
         """ gmail operations with the Gmail API
 
         :param
           sender(str): Sender Address
           to(str): To Address
         """
-        self.scope = ['https://www.googleapis.com/auth/gmail.send']
+        super().__init__()
         self.sender = sender
         self.to = to
-        self.service = self.get_access_token()
-
-    def get_access_token(self):
-        """ アクセストークンの取得
-
-        :return:
-          service
-        """
-        creds = None
-        if os.path.exists('token/token.pickle'):
-            with open('token/token.pickle', 'rb') as token:
-                creds = pickle.load(token)
-        if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    'token/credentials.json', self.scope)
-                creds = flow.run_local_server()
-            with open('token/token.pickle', 'wb') as token:
-                pickle.dump(creds, token)
-
-        return build('gmail', 'v1', credentials=creds)
+        self.service = self.get_service_gmail_v1()
 
     def create_message(self, subject_, msg_text):
         """ メール本文の作成 """
@@ -105,3 +81,14 @@ class GmailApi(object):
             return msg
         except errors.HttpError as error:
             print(f"An error occurred: {error}")
+
+    def auto_reply(self):
+        """ 受付完了自動返信メール
+
+        - クライアントから受信
+        - 受付検知
+        - 本関数呼び出し
+        - 受付完了メールの送信
+
+        :return:
+        """

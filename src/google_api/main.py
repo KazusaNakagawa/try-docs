@@ -1,5 +1,7 @@
 import const
+
 from gmail_api import GmailApi
+from drive_api import DriveApi
 
 
 def main_attach_file():
@@ -26,6 +28,13 @@ def main():
     gmail_api.send_message(user_id='me', msg=message)
 
 
+def read_drive_files():
+    drive_api = DriveApi()
+    # drive_api.service_files()
+    drive_api.read_spreadsheet()
+
+
 if __name__ == '__main__':
-    main_attach_file()
-    main()
+    # main_attach_file()
+    # main()
+    read_drive_files()
