@@ -11,17 +11,21 @@ from client_service import ClientService
 
 class GmailApi(ClientService):
 
-    def __init__(self, sender, to):
+    def __init__(self, sender, to, zip_dir=None, zip_name=None):
 
         """ gmail operations with the Gmail API
 
         :param
           sender(str): Sender Address
           to(str): To Address
+          zip_dir(str): 添付対象 zip Directory Name
+          zip_name(str): 添付対象 zip Name
         """
         super().__init__()
         self.sender = sender
         self.to = to
+        self.zip_dir = zip_dir
+        self.zip_name = zip_name
         self.service = self.get_service_gmail_v1()
 
     def create_message(self, subject_, msg_text):
@@ -50,7 +54,7 @@ class GmailApi(ClientService):
 
         return {'raw': encode_message.decode()}
 
-    def _attach_file(self, attach_file_path="../zip_try/archive_with_pass.zip"):
+    def _attach_file(self):
         """ ファイルを添付
 
         :param
@@ -59,6 +63,7 @@ class GmailApi(ClientService):
         :return
           msg(class: email.mime.multipart.MIMEMultipart)
         """
+        attach_file_path = f'{self.zip_dir}/{self.zip_name}'
 
         msg = MIMEMultipart()
         with open(attach_file_path, "rb") as f:
