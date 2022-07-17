@@ -37,9 +37,9 @@
   pip install -r requirements.txt
   ```
 
-4`main.py` を実行する
+4. `main.py` を実行する
 
-5メール送信されたか確認する
+5. メール送信されたか確認する
 
 
 ## 参考
