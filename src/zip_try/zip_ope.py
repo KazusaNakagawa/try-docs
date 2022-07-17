@@ -14,9 +14,11 @@ def touch_file(dir_='zip_storage', file_name='file', extension='txt'):
         print("ファイルが既に存在します。")
 
 
-def compress_zip(pass_word=b'password', dir_zip='zip_storage', file_name='file'):
+def compress_zip(pass_word='password', dir_zip='zip_storage', file_name='file'):
     with pyzipper.AESZipFile('archive_with_pass.zip', 'w',
                              encryption=pyzipper.WZ_AES) as zf:
+        pass_word = pass_word.encode()
+        print(type(pass_word))
         zf.setpassword(pass_word)
 
         zf.write(f'./{dir_zip}/{file_name}.txt', arcname=f'{file_name}.txt')
@@ -25,5 +27,5 @@ def compress_zip(pass_word=b'password', dir_zip='zip_storage', file_name='file')
 
 if __name__ == '__main__':
     mkdir()
-    touch_file(extension='csv')
+    # touch_file(extension='csv')
     compress_zip()
