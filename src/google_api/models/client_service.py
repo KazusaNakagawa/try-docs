@@ -13,7 +13,7 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from os.path import basename
 
-from config import log_conf
+from src.google_api.config import log_conf
 
 TOKEN_JSON = 'token/token.json'
 

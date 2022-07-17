@@ -1,4 +1,4 @@
-from client_service import ClientService
+from src.google_api.models.client_service import ClientService
 
 
 class DriveApi(ClientService):
