@@ -1,19 +1,35 @@
 import const
 
 from gmail_api import GmailApi
-from drive_api import DriveApi
+from sheets_api import SheetsApi
+from zip import Zip
 
 
 def main_attach_file():
     """ 添付ファイルつき Gmail送信 """
-    gmail_api = GmailApi(sender=const.SENDER_ADDRESS, to=const.TO_ADDRESS)
 
-    # メール本文の作成
-    subject = 'メール送信自動化テスト_ Class Gmail API'
-    message_text = 'メール送信の自動化テストをしています。 zip 添付'
-    message = gmail_api.create_message_attach_file(subject=subject, message_text=message_text)
+    # user一覧読み込む
+    sheets_api = SheetsApi()
+    users = sheets_api.read_users(
+        worksheet_data=sheets_api.read_sheet(const.OPEN_BY_KEY)
+    )
+    print(users)
 
-    gmail_api.send_message(user_id='me', msg=message)
+    for user in users:
+        # zip圧縮: passつき
+        Zip(zip_pass=user['zip_pass']).run_zip_compress()
+
+        gmail_api = GmailApi(
+            sender=user['mail_address'],
+            to=user['mail_address'],
+            zip_dir='zip_storage',
+            zip_name='sample.zip'
+        )
+        # メール本文の作成・送信
+        subject = 'メール送信自動化テスト_ Class Gmail API'
+        message_text = f'メール送信の自動化テストをしています。\n {user}'
+        message = gmail_api.create_message_attach_file(subject=subject, message_text=message_text)
+        gmail_api.send_message(user_id='me', msg=message)
 
 
 def main():
@@ -28,13 +44,6 @@ def main():
     gmail_api.send_message(user_id='me', msg=message)
 
 
-def read_drive_files():
-    drive_api = DriveApi()
-    # drive_api.service_files()
-    drive_api.read_spreadsheet()
-
-
 if __name__ == '__main__':
-    # main_attach_file()
+    main_attach_file()
     # main()
-    read_drive_files()
