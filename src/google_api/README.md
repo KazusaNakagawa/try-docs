@@ -22,7 +22,12 @@
 
    - ※1: 任意のjson ファイル名でよい. [SheetApi](https://github.com/KazusaNakagawa/try-docs/blob/eca14a49fa233b79ee29568c83c6a36770957ce8/src/google_api/models/sheets_api.py#L15) でファイル名をハードコーティングしている
 
-2. 環境設定値
+2. スプレッドシートの仕込み
+    - 紐付けするスプレッドシートを以下のように用意する
+
+      <img src="./docs/img/account.png" width="500">
+
+3. 環境設定値
 
     ```bash
     # .env
@@ -35,15 +40,15 @@
     OPEN_BY_KEY={open_by_key}
     ```
 
-3. package install
+4. package install
 
     ```bash
     pip install -r requirements.txt
     ```
 
-4. `main.py` を実行する
+5. `main.py` を実行する
 
-5. メール送信されたか確認する
+6. メール送信されたか確認する
 
 
 ## 参考
