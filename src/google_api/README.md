@@ -36,9 +36,10 @@
     ```
 
 3. package install
-  ```bash
-  pip install -r requirements.txt
-  ```
+
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 4. `main.py` を実行する
 
