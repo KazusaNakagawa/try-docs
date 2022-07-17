@@ -2,7 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from typing import List
 
-from client_service import ClientService
+from src.google_api.models.client_service import ClientService
 
 
 class SheetsApi(ClientService):

@@ -1,8 +1,8 @@
 import const
 
-from gmail_api import GmailApi
-from sheets_api import SheetsApi
-from zip import Zip
+from src.google_api.models.gmail_api import GmailApi
+from src.google_api.models.sheets_api import SheetsApi
+from src.google_api.models.zip import Zip
 
 
 def main_attach_file():

@@ -3,7 +3,7 @@ import os.path
 import pathlib
 import pyzipper
 
-from client_service import ClientService
+from src.google_api.models.client_service import ClientService
 
 
 class Zip(ClientService):
