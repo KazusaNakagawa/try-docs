@@ -19,6 +19,7 @@
 |:-|:-|
 |`./token/credentials.json`|OAuth 2.0 クライアントの JSONファイル|
 |`gmail-api-355022-service-account-key.json`|サービスアカウントキー ※1|
+
 ※1: 任意のjson ファイル名でよい. [SheetApi](https://github.com/KazusaNakagawa/try-docs/blob/eca14a49fa233b79ee29568c83c6a36770957ce8/src/google_api/models/sheets_api.py#L15) でファイル名をハードコーティングしている
 
 2. 環境設定値
