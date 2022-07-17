@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "formatters": {
+    "defaultFormatter": {
+      "format": "%(asctime)s %(name)-15s [%(lineno)d] %(levelname)-13s %(message)s",
+      "datefmt": "%Y-%m-%d %H:%M:%S"
+    },
+    "userFormatter": {
+      "format": "%(asctime)s %(name)-15s %(levelname)-13s %(message)s"
+    }
+  },
+  "handlers": {
+    "defaultHandlers": {
+      "class": "logging.StreamHandler",
+      "formatter": "defaultFormatter",
+      "level": "DEBUG"
+    },
+    "userHandlers": {
+      "class": "logging.StreamHandler",
+      "formatter": "userFormatter",
+      "level": "DEBUG"
+    }
+  },
+  "root": {
+    "handlers": [
+      "defaultHandlers"
+    ],
+    "level": "INFO"
+  },
+  "loggers": {
+    "simpleDefault": {
+      "handlers": [
+        "defaultHandlers"
+      ],
+      "level": "INFO",
+      "propagate": 0
+    },
+    "simpleUser": {
+      "handlers": [
+        "userHandlers"
+      ],
+      "level": "DEBUG",
+      "propagate": 0
+    }
+  }
+}
