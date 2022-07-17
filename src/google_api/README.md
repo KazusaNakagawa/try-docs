@@ -3,6 +3,7 @@
 ## 前提
 - [Google Cloud](https://console.cloud.google.com/) で プロジェクト作成し、OAuth 2.0 クライアントの JSONファイルを用意
 - Google Sheet 操作するために、[サービス アカウント キー](https://www.dragonarrow.work/articles/95) を作成
+- 参照したいスプレッドシートの設定
 - [Gmail API](https://console.cloud.google.com/marketplace/product/google/gmail.googleapis.com) の有効化
 - [Google Sheets API](https://console.cloud.google.com/marketplace/product/google/sheets.googleapis.com) の有効化
 
