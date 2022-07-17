@@ -7,7 +7,7 @@ Python 動きみたいときとか使う
 | Directory | 内容 |
 |:--:|:--:|
 |[conf_logger](https://github.com/KazusaNakagawa/try-docs/tree/develop/src/conf_logger)|ログ処理試してみる|
-|[gmail_api](https://github.com/KazusaNakagawa/try-docs/tree/develop/src/gmail_api)|Gmail API を使ってみる|
+|[google_api](https://github.com/KazusaNakagawa/try-docs/tree/develop/src/google_api)|Google API を使ってみる|
 |[np](https://github.com/KazusaNakagawa/try-docs/tree/develop/src/np)|numpy 試す|
 |[logging](https://github.com/KazusaNakagawa/try-docs/tree/develop/src/logging)|ログ処理試す|
 |[pytest_prj](https://github.com/KazusaNakagawa/try-docs/tree/develop/src/pytest_prj)|-|
