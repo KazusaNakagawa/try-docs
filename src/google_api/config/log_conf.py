@@ -1,38 +1,51 @@
-import configparser
 import json
 import logging
-import uuid
-
 import os
-from logging import StreamHandler, FileHandler, Formatter
-from logging import INFO, DEBUG, NOTSET
 
 import logging.config
 
-_EXEC_FILE_NAME = os.path.basename(__file__)[:-3]
 
+def _read_conf_file(conf_file: str) -> None:
+    """ log 設定ファイルの読み込み
 
-def read_conf_file(conf_file='format/conf.json'):
-    """ Loading a format file """
+    :param
+      conf_file(str): log 設定ファイル名
+    :return:
+      None
+    """
     with open(conf_file, 'r', encoding='utf-8') as f:
         f_ = json.load(f)
         logging.config.dictConfig(f_)
 
 
-def get_logger(logger_='simpleDefault'):
-    """ ロガー生成 """
+def _get_logger(logger_: str) -> logging.Logger:
+    """ log 出力名設定
+
+    :param
+      logger_(str): log 出力名
+    :return:
+      生成した logger (logging.Logger)
+    """
     return logging.getLogger(logger_)
 
 
-def get_conf(conf, sec: str, option: str, format1=None, format2=None):
+def _get_conf(conf, sec: str, option: str, format1=None, format2=None):
     """ Get the section name and key. """
     conf = conf.get(section=sec, option=option)
     return conf.format(format1, format2)
 
 
-def set_file_handler(logger):
+def set_file_handler(logger, conf_file='format/log/mulch.json') -> logging.Logger:
+    """ log 出力フォーマットを指定して、log 出力する
+
+    :param
+      logger:
+      conf_file:
+    :return:
+      生成した logger (logging.Logger)
+    """
     if not os.path.isdir('./log'):
         os.makedirs('./log', exist_ok=True)
 
-    read_conf_file(conf_file='format/mulch.json')
-    return get_logger(logger)
+    _read_conf_file(conf_file=conf_file)
+    return _get_logger(logger)
