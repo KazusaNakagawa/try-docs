@@ -13,24 +13,19 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from os.path import basename
 
-from src.google_api.config import log_conf
+from src.google_api.config.log_conf import LogConf
 
 TOKEN_JSON = 'token/token.json'
 
 
 class ClientService(object):
-    def __init__(self, base_name=__file__):
-        """
 
-        :param base_name: 実行ファイル名
-        """
+    def __init__(self):
         self.scope = ['https://www.googleapis.com/auth/gmail.send']
         self.drive_scope = ['https://www.googleapis.com/auth/drive.metadata.readonly']
         self.token_pickle = 'token/token.pickle'
         self.credentials = 'token/credentials.json'
-
-        filename, _ = os.path.splitext(os.path.basename(base_name))
-        self.logger = log_conf.set_file_handler(filename)
+        self.logger = LogConf().get_logger(logger=__file__)
 
     def get_service_gmail_v1(self):
         """ Gmail API 使用設定

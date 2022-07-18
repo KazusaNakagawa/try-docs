@@ -7,6 +7,7 @@ from email.mime.multipart import MIMEMultipart
 from os.path import basename
 
 from src.google_api.models.client_service import ClientService
+from src.google_api.config.log_conf import LogConf
 
 
 class GmailApi(ClientService):
@@ -27,6 +28,7 @@ class GmailApi(ClientService):
         self.zip_dir = zip_dir
         self.zip_name = zip_name
         self.service = self.get_service_gmail_v1()
+        self.logger = LogConf().get_logger(__file__)
 
     def create_message(self, subject_, msg_text):
         """ メール本文の作成 """
@@ -79,13 +81,17 @@ class GmailApi(ClientService):
     def send_message(self, user_id, msg):
         """ メール送信の実行 """
         try:
-            msg = (self.service.users().messages().send(userId=user_id, body=msg)
-                   .execute())
-            print(f"Message Id: {msg['id']}")
+            msg = self.service.users().messages().send(userId=user_id, body=msg).execute()
+            self.logger.info({
+                'Message Id': msg['id'],
+                'msg': 'OK Send mail',
+            })
 
-            return msg
         except errors.HttpError as error:
-            print(f"An error occurred: {error}")
+            self.logger.error({
+                'Message Id': msg['id'],
+                'error': error,
+            })
 
     def auto_reply(self):
         """ 受付完了自動返信メール
