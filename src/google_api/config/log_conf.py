@@ -1,38 +1,51 @@
-import configparser
 import json
 import logging
-import uuid
-
 import os
-from logging import StreamHandler, FileHandler, Formatter
-from logging import INFO, DEBUG, NOTSET
 
 import logging.config
 
-_EXEC_FILE_NAME = os.path.basename(__file__)[:-3]
 
+class LogConf(object):
+    """ log Setting Class """
 
-def read_conf_file(conf_file='format/conf.json'):
-    """ Loading a format file """
-    with open(conf_file, 'r', encoding='utf-8') as f:
-        f_ = json.load(f)
-        logging.config.dictConfig(f_)
+    def __init__(self):
+        pass
 
+    def _read_conf_file(self, conf_file: str) -> None:
+        """ log 設定ファイルの読み込み
 
-def get_logger(logger_='simpleDefault'):
-    """ ロガー生成 """
-    return logging.getLogger(logger_)
+        :param
+          conf_file(str): log 設定ファイル名
+        :return:
+          None
+        """
+        with open(conf_file, 'r', encoding='utf-8') as f:
+            f_ = json.load(f)
+            logging.config.dictConfig(f_)
 
+    def get_logger(self, logger: str, conf_file='format/log_format/mulch.json') -> logging.Logger:
+        """ log 出力フォーマットを指定して、log 出力する
 
-def get_conf(conf, sec: str, option: str, format1=None, format2=None):
-    """ Get the section name and key. """
-    conf = conf.get(section=sec, option=option)
-    return conf.format(format1, format2)
+        :param
+          logger: logger 生成
+          conf_file: log 設定ファイル
+        :return:
+          生成した logger (logging.Logger)
+        """
+        if not os.path.isdir('./log'):
+            os.makedirs('./log', exist_ok=True)
 
+        self._read_conf_file(conf_file=conf_file)
 
-def set_file_handler(logger):
-    if not os.path.isdir('./log'):
-        os.makedirs('./log', exist_ok=True)
+        filename, _ = os.path.splitext(os.path.basename(logger))
+        logger = logging.getLogger(filename)
 
-    read_conf_file(conf_file='format/mulch.json')
-    return get_logger(logger)
+        # log 出力使用可能に設定
+        logger.disabled = False
+
+        return logger
+
+    def _get_conf(self, conf, sec: str, option: str, format1=None, format2=None):
+        """ Get the section name and key. """
+        conf = conf.get(section=sec, option=option)
+        return conf.format(format1, format2)

@@ -22,7 +22,7 @@
     "time": {
       "class": "logging.handlers.TimedRotatingFileHandler",
       "filename": "log/time_rota.log",
-      "when": "M",
+      "when": "D",
       "formatter": "detailed"
     },
     "testfile": {

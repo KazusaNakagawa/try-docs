@@ -4,6 +4,7 @@ import pathlib
 import pyzipper
 
 from src.google_api.models.client_service import ClientService
+from src.google_api.config.log_conf import LogConf
 
 
 class Zip(ClientService):
@@ -16,11 +17,12 @@ class Zip(ClientService):
         :param zip_name(str): zip 圧縮名
         :param zip_pass(str): zip password
         """
-        super().__init__(base_name=__file__)
+        super().__init__()
         self.file_name = file_name
         self.zip_dir = zip_dir
         self.zip_name = zip_name
         self.zip_pass = zip_pass
+        self.logger = LogConf().get_logger(__file__)
 
     def _mkdir(self):
         """ zip 扱う Directory 作成 """

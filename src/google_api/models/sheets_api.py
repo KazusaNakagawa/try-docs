@@ -66,3 +66,26 @@ class SheetsApi(ClientService):
             users.append(user)
 
         return users
+
+    @classmethod
+    def read_mail_templates(cls, worksheet_data: gspread.worksheet.ValueRange) -> List:
+        """ メール本文の読み込み
+
+        :param
+          worksheet_data: Spread Sheets 参照 セル範囲
+        :return:
+          mail_tmps(List): メールテンプレ
+        """
+        mail_tmps = []
+
+        for mail_tmp in worksheet_data:
+            if len(mail_tmp) < 3:
+                break
+            mail_tmp = {
+                'id': mail_tmp[0],
+                'subject': mail_tmp[1],
+                'mail_text': mail_tmp[2],
+            }
+            mail_tmps.append(mail_tmp)
+
+        return mail_tmps
