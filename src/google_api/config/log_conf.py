@@ -35,12 +35,12 @@ def _get_conf(conf, sec: str, option: str, format1=None, format2=None):
     return conf.format(format1, format2)
 
 
-def set_file_handler(logger, conf_file='format/log/mulch.json') -> logging.Logger:
+def set_file_handler(logger, conf_file='format/log_format/mulch.json') -> logging.Logger:
     """ log 出力フォーマットを指定して、log 出力する
 
     :param
-      logger:
-      conf_file:
+      logger: logger 生成
+      conf_file: log 設定ファイル
     :return:
       生成した logger (logging.Logger)
     """
