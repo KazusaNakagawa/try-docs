@@ -36,7 +36,6 @@ class SheetsApi(ClientService):
         :return
           取得データ: (gspread.worksheet.ValueRange)
         """
-
         credentials = CredentialsCustom.from_service_account_file(
             self.secret_credentials_json_oath,
             scopes=self.scopes
