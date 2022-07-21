@@ -1,8 +1,10 @@
 import gspread
-from google.oauth2.service_account import Credentials
+
 from typing import List
 
 from src.google_api.models.client_service import ClientService
+from src.google_api.models.credentials_custom import CredentialsCustom
+from src.google_api.json_key.json_key import service_account_key
 
 
 class SheetsApi(ClientService):
@@ -12,7 +14,9 @@ class SheetsApi(ClientService):
         self.scopes = [
             'https://www.googleapis.com/auth/spreadsheets',
         ]
-        self.secret_credentials_json_oath = 'token/gmail-api-355022-service-account-key.json'
+        # self.secret_credentials_json_oath = 'token/gmail-api-355022-service-account-key.json'
+        # NOTE: Read dict type data because json files cannot be handled.
+        self.secret_credentials_json_oath = service_account_key()
 
     def read_sheet(self, open_by_key=None, sheet_num=0, cell_range='A2:D') -> gspread.worksheet.ValueRange:
         """ SpreedSheet 読み込み
@@ -32,7 +36,8 @@ class SheetsApi(ClientService):
         :return
           取得データ: (gspread.worksheet.ValueRange)
         """
-        credentials = Credentials.from_service_account_file(
+
+        credentials = CredentialsCustom.from_service_account_file(
             self.secret_credentials_json_oath,
             scopes=self.scopes
         )
