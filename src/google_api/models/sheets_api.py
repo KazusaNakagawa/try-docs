@@ -4,7 +4,7 @@ from typing import List
 
 from src.google_api.models.client_service import ClientService
 from src.google_api.models.credentials_custom import CredentialsCustom
-from src.google_api.json_key.json_key import service_account_key
+from src.google_api.token.json_key import service_account_key
 
 
 class SheetsApi(ClientService):
