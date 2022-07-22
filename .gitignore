@@ -15,6 +15,7 @@ log/
 
 # token directory
 token/
+json_key/
 
 # envriments
 .env
