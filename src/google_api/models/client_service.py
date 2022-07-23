@@ -27,7 +27,7 @@ class ClientService(object):
           Gmail v1 service
         """
         self.logger.info({
-            'msd': 'アクセストークンの取得開始',
+            'msg': 'アクセストークンの取得開始',
             'func': sys._getframe().f_code.co_name,
         })
         creds = None
@@ -47,14 +47,14 @@ class ClientService(object):
 
             service = build('gmail', 'v1', credentials=creds)
             self.logger.info({
-                'msd': 'アクセストークンの取得完了',
+                'msg': 'アクセストークンの取得完了',
                 'func': sys._getframe().f_code.co_name,
             })
             return service
 
         except Exception as ex:
             self.logger.info({
-                'msd': 'アクセストークンの取得失敗',
+                'msg': 'アクセストークンの取得失敗',
                 'func': sys._getframe().f_code.co_name,
                 'ex': ex,
             })
@@ -66,7 +66,7 @@ class ClientService(object):
         :return:
         """
         self.logger.info({
-            'msd': 'アクセストークンの取得開始',
+            'msg': 'アクセストークンの取得開始',
             'func': sys._getframe().f_code.co_name,
         })
         creds = None
@@ -90,7 +90,7 @@ class ClientService(object):
 
             service = build('drive', 'v3', credentials=creds)
             self.logger.info({
-                'msd': 'アクセストークンの取得完了',
+                'msg': 'アクセストークンの取得完了',
                 'func': sys._getframe().f_code.co_name,
             })
 
@@ -98,7 +98,7 @@ class ClientService(object):
 
         except Exception as ex:
             self.logger.error({
-                'msd': 'アクセストークンの取得失敗',
+                'msg': 'アクセストークンの取得失敗',
                 'func': sys._getframe().f_code.co_name,
                 'ex': ex,
             })
