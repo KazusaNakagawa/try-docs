@@ -26,12 +26,6 @@ class SheetsApi(ClientService):
           sheet_num(int): 読み込みシート番号
           cell_range(str): セル取得範囲
 
-        Sheet: アカウント一覧
-        A: No
-        B: アカウント名
-        C: メールアドレス
-        D: zipパスワード
-
         :return
           取得データ: (gspread.worksheet.ValueRange)
         """
@@ -48,6 +42,12 @@ class SheetsApi(ClientService):
 
     def read_users(self) -> List:
         """ アカウント一覧を取得する
+
+        Sheet: アカウント一覧
+          A: No
+          B: アカウント名
+          C: メールアドレス To
+          D: zipパスワード
 
         :return:
           users(List): アカウント一覧
@@ -71,6 +71,11 @@ class SheetsApi(ClientService):
 
     def read_mail_templates(self) -> List:
         """ メール本文の読み込み
+
+        Sheet: メールテンプレ
+          A: No
+          B: 件名
+          C: 本文
 
         :return:
           mail_tmps(List): メールテンプレ
