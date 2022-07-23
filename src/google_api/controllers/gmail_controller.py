@@ -11,13 +11,10 @@ def send_gmail_attach_file() -> None:
     :return:
       None
     """
-    # 参照レコード調整: 2行目から開始している
-
     # user一覧読み込む
     sheets_api = SheetsApi()
-    users = sheets_api.read_users(
-        worksheet_data=sheets_api.read_sheet(open_by_key=const.OPEN_BY_KEY)
-    )
+    users = sheets_api.read_users()
+    # 送信アカウントid 取得
     user_id = send_gmail_view.send_gmail_select_user_console(users)
 
     # zip圧縮: passつき
@@ -30,9 +27,7 @@ def send_gmail_attach_file() -> None:
         zip_name=const.ZIP_NAME
     )
     # メール本文の作成・送信
-    mail_templates = sheets_api.read_mail_templates(
-        sheets_api.read_sheet(open_by_key=const.OPEN_BY_KEY, sheet_num=1, cell_range='A2:C')
-    )
+    mail_templates = sheets_api.read_mail_templates()
     subject = mail_templates[user_id]['subject']
     message_text = mail_templates[user_id]['mail_text']
     message = gmail_api.create_message_attach_file(subject=subject, message_text=message_text)

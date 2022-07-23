@@ -1,9 +1,12 @@
-from src.google_api.const import SECRET_CREDENTIALS_JSON_OATH
 import gspread
 from google.oauth2.service_account import Credentials
 from typing import List
 
 from src.google_api.models.client_service import ClientService
+from src.google_api.const import (
+    OPEN_BY_KEY,
+    SECRET_CREDENTIALS_JSON_OATH,
+)
 
 
 class SheetsApi(ClientService):
@@ -15,12 +18,11 @@ class SheetsApi(ClientService):
         ]
         self.secret_credentials_json_oath = SECRET_CREDENTIALS_JSON_OATH
 
-    def read_sheet(self, open_by_key=None, sheet_num=0, cell_range='A2:D') -> gspread.worksheet.ValueRange:
+    def _read_sheet(self, open_by_key=None, sheet_num=0, cell_range='A2:D') -> gspread.worksheet.ValueRange:
         """ SpreedSheet 読み込み
 
         :param
-          open_by_key: Sheet URL
-                        https://docs.google.com/spreadsheets/d/{ココ}/edit#gid=0
+          open_by_key: Sheet URL > https://docs.google.com/spreadsheets/d/{target area}/edit#gid=0
           sheet_num(int): 読み込みシート番号
           cell_range(str): セル取得範囲
 
@@ -44,16 +46,15 @@ class SheetsApi(ClientService):
 
         return worksheet.get(cell_range)
 
-    @classmethod
-    def read_users(cls, worksheet_data: gspread.worksheet.ValueRange) -> List:
+    def read_users(self) -> List:
         """ アカウント一覧を取得する
 
-        :param
-          worksheet_data: Spread Sheets 参照 セル範囲
         :return:
           users(List): アカウント一覧
         """
         users = []
+
+        worksheet_data = self._read_sheet(open_by_key=OPEN_BY_KEY)
 
         for user in worksheet_data:
             if len(user) < 4:
@@ -68,16 +69,15 @@ class SheetsApi(ClientService):
 
         return users
 
-    @classmethod
-    def read_mail_templates(cls, worksheet_data: gspread.worksheet.ValueRange) -> List:
+    def read_mail_templates(self) -> List:
         """ メール本文の読み込み
 
-        :param
-          worksheet_data: Spread Sheets 参照 セル範囲
         :return:
           mail_tmps(List): メールテンプレ
         """
         mail_tmps = []
+
+        worksheet_data = self._read_sheet(open_by_key=OPEN_BY_KEY, sheet_num=1, cell_range='A2:C')
 
         for mail_tmp in worksheet_data:
             if len(mail_tmp) < 3:
