@@ -8,8 +8,6 @@ from src.google_api.models.sheets_api import SheetsApi
 def send_gmail_attach_file() -> None:
     """ 添付ファイルつき Gmail送信
 
-    :param
-      user_id(int): スプレッドシート参照 No
     :return:
       None
     """
