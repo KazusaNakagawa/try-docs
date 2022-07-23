@@ -1,3 +1,4 @@
+from src.google_api.const import SECRET_CREDENTIALS_JSON_OATH
 import gspread
 from google.oauth2.service_account import Credentials
 from typing import List
@@ -12,7 +13,7 @@ class SheetsApi(ClientService):
         self.scopes = [
             'https://www.googleapis.com/auth/spreadsheets',
         ]
-        self.secret_credentials_json_oath = 'token/gmail-api-355022-service-account-key.json'
+        self.secret_credentials_json_oath = SECRET_CREDENTIALS_JSON_OATH
 
     def read_sheet(self, open_by_key=None, sheet_num=0, cell_range='A2:D') -> gspread.worksheet.ValueRange:
         """ SpreedSheet 読み込み
