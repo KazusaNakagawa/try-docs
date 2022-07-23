@@ -1,10 +1,11 @@
 from src.google_api import const
 from src.google_api.models.gmail_api import GmailApi
-from src.google_api.models.sheets_api import SheetsApi
+from src.google_api.views import send_gmail_view
 from src.google_api.models.zip import Zip
+from src.google_api.models.sheets_api import SheetsApi
 
 
-def send_gmail_attach_file(user_id=1) -> None:
+def send_gmail_attach_file() -> None:
     """ 添付ファイルつき Gmail送信
 
     :param
@@ -13,13 +14,14 @@ def send_gmail_attach_file(user_id=1) -> None:
       None
     """
     # 参照レコード調整: 2行目から開始している
-    user_id = user_id - 1
 
     # user一覧読み込む
     sheets_api = SheetsApi()
     users = sheets_api.read_users(
         worksheet_data=sheets_api.read_sheet(open_by_key=const.OPEN_BY_KEY)
     )
+    user_id = send_gmail_view.send_gmail_select_user_console(users)
+    user_id = int(user_id) - 1
 
     # zip圧縮: passつき
     Zip(zip_pass=users[user_id]['zip_pass']).run_zip_compress()
@@ -27,8 +29,8 @@ def send_gmail_attach_file(user_id=1) -> None:
     gmail_api = GmailApi(
         sender=users[user_id]['mail_address'],
         to=users[user_id]['mail_address'],
-        zip_dir='zip_storage',
-        zip_name='sample.zip'
+        zip_dir=const.ZIP_DIR,
+        zip_name=const.ZIP_NAME
     )
     # メール本文の作成・送信
     mail_templates = sheets_api.read_mail_templates(
