@@ -21,7 +21,6 @@ def send_gmail_attach_file() -> None:
         worksheet_data=sheets_api.read_sheet(open_by_key=const.OPEN_BY_KEY)
     )
     user_id = send_gmail_view.send_gmail_select_user_console(users)
-    user_id = int(user_id) - 1
 
     # zip圧縮: passつき
     Zip(zip_pass=users[user_id]['zip_pass']).run_zip_compress()
