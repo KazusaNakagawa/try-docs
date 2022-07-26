@@ -6,8 +6,8 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from os.path import basename
 
-from src.google_api.models.client_service import ClientService
-from src.google_api.config.log_conf import LogConf
+from models.client_service import ClientService
+from config.log_conf import LogConf
 
 
 class GmailApi(ClientService):

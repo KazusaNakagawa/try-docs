@@ -1,4 +1,4 @@
-from src.google_api.config.log_conf import LogConf
+from config.log_conf import LogConf
 
 
 def send_gmail_select_user_console(users: list) -> int:

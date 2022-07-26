@@ -7,8 +7,8 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
-from src.google_api import const
-from src.google_api.config.log_conf import LogConf
+import const
+from config.log_conf import LogConf
 
 
 class ClientService(object):

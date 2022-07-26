@@ -1,8 +1,8 @@
-from src.google_api import const
-from src.google_api.models.gmail_api import GmailApi
-from src.google_api.views import send_gmail_view
-from src.google_api.models.zip import Zip
-from src.google_api.models.sheets_api import SheetsApi
+import const
+from models.gmail_api import GmailApi
+from views import send_gmail_view
+from models.zip import Zip
+from models.sheets_api import SheetsApi
 
 
 def send_gmail_attach_file() -> None:
