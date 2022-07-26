@@ -2,8 +2,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 from typing import List
 
-from src.google_api.models.client_service import ClientService
-from src.google_api.const import (
+from models.client_service import ClientService
+from const import (
     OPEN_BY_KEY,
     SECRET_CREDENTIALS_JSON_OATH,
 )

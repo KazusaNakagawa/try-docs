@@ -3,8 +3,8 @@ import os.path
 import pathlib
 import pyzipper
 
-from src.google_api.models.client_service import ClientService
-from src.google_api.config.log_conf import LogConf
+from models.client_service import ClientService
+from config.log_conf import LogConf
 
 
 class Zip(ClientService):
