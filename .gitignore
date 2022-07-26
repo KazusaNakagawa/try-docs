@@ -13,9 +13,5 @@ log/
 *.xlsx
 *.zip
 
-# token directory
-token/
-
 # envriments
 .env
-
