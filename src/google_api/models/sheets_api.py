@@ -2,6 +2,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 from typing import List
 
+from config.log_conf import LogConf
+from models.custom_error import ColNameError
 from models.client_service import ClientService
 from const import (
     OPEN_BY_KEY,
@@ -17,28 +19,26 @@ class SheetsApi(ClientService):
             'https://www.googleapis.com/auth/spreadsheets',
         ]
         self.secret_credentials_json_oath = SECRET_CREDENTIALS_JSON_OATH
+        self.logger = LogConf().get_logger(__file__)
 
-    def _read_sheet(self, open_by_key=None, sheet_num=0, cell_range='A2:D') -> gspread.worksheet.ValueRange:
+    def _read_sheet(self, open_by_key=None, sheet_title='アカウント一覧') -> List:
         """ SpreedSheet 読み込み
 
         :param
           open_by_key: Sheet URL > https://docs.google.com/spreadsheets/d/{target area}/edit#gid=0
-          sheet_num(int): 読み込みシート番号
-          cell_range(str): セル取得範囲
+          sheet_title(str): シート名
 
         :return
-          取得データ: (gspread.worksheet.ValueRange)
+          取得データ(list)
         """
         credentials = Credentials.from_service_account_file(
             self.secret_credentials_json_oath,
             scopes=self.scopes
         )
         gc = gspread.authorize(credentials)
+        workbook = gc.open_by_key(open_by_key).worksheet(sheet_title)
 
-        workbook = gc.open_by_key(open_by_key)
-        worksheet = workbook.get_worksheet(sheet_num)
-
-        return worksheet.get(cell_range)
+        return workbook.get_all_values()
 
     def read_users(self) -> List:
         """ アカウント一覧を取得する
@@ -52,12 +52,21 @@ class SheetsApi(ClientService):
         :return:
           users(List): アカウント一覧
         """
+        worksheet_data = self._read_sheet(open_by_key=OPEN_BY_KEY, sheet_title='アカウント一覧')
+
+        # 項目確認
+        if not worksheet_data[0] == ['ID', 'アカウント名', 'メールアドレス To', 'zip パスワード']:
+            self.logger.error({
+                'msg': 'ColNameError The acquisition column items are different.',
+                'cols': worksheet_data[0],
+            })
+            raise ColNameError
+
         users = []
-
-        worksheet_data = self._read_sheet(open_by_key=OPEN_BY_KEY)
-
+        # カラム名の要素削除
+        worksheet_data.pop(0)
         for user in worksheet_data:
-            if len(user) < 4:
+            if '' in user:
                 break
             user = {
                 'id': user[0],
@@ -82,10 +91,19 @@ class SheetsApi(ClientService):
         """
         mail_tmps = []
 
-        worksheet_data = self._read_sheet(open_by_key=OPEN_BY_KEY, sheet_num=1, cell_range='A2:C')
+        worksheet_data = self._read_sheet(open_by_key=OPEN_BY_KEY, sheet_title='メールテンプレ')
 
+        if not worksheet_data[0] == ['ID', '件名', '本文']:
+            self.logger.error({
+                'msg': 'ColNameError The acquisition column items are different.',
+                'cols': worksheet_data[0],
+            })
+            raise ColNameError
+
+        # 項目行削除
+        worksheet_data.pop(0)
         for mail_tmp in worksheet_data:
-            if len(mail_tmp) < 3:
+            if '' in mail_tmp:
                 break
             mail_tmp = {
                 'id': mail_tmp[0],
