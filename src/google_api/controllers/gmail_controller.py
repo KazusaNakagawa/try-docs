@@ -1,6 +1,7 @@
 import const
 from models.gmail_api import GmailApi
 from views import send_gmail_view
+from views import send_gmail_gui
 from models.zip import Zip
 from models.sheets_api import SheetsApi
 
@@ -15,7 +16,7 @@ def send_gmail_attach_file() -> None:
     sheets_api = SheetsApi()
     users = sheets_api.read_users()
     # 送信アカウントid 取得
-    user_id = send_gmail_view.send_gmail_select_user_console(users)
+    user_id = send_gmail_gui.select_send_gmail_gui(users)
 
     # zip圧縮: passつき
     Zip(zip_pass=users[user_id]['zip_pass']).run_zip_compress()

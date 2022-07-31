@@ -10,6 +10,12 @@ load_dotenv(dotenv_path)
 SENDER_ADDRESS = os.environ.get('SENDER_ADDRESS')
 TO_ADDRESS = os.environ.get('TO_ADDRESS')
 
+# PySimpleGUI
+PY_SIMPLE_GUI = {
+ 'font': '14',
+ 'theme': 'BlueMono',
+}
+
 # SpreadSheet
 ACCOUNT_SHEET_NAME = ['ID', 'アカウント名', 'メールアドレス To', 'zip パスワード']
 MAIL_TEMPLATE = ['ID', '件名', '本文']
