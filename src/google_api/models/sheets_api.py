@@ -6,6 +6,8 @@ from config.log_conf import LogConf
 from models.custom_error import ColNameError
 from models.client_service import ClientService
 from const import (
+    ACCOUNT_SHEET_NAME,
+    MAIL_TEMPLATE,
     OPEN_BY_KEY,
     SECRET_CREDENTIALS_JSON_OATH,
 )
@@ -55,7 +57,7 @@ class SheetsApi(ClientService):
         worksheet_data = self._read_sheet(open_by_key=OPEN_BY_KEY, sheet_title='アカウント一覧')
 
         # 項目確認
-        if not worksheet_data[0] == ['ID', 'アカウント名', 'メールアドレス To', 'zip パスワード']:
+        if not worksheet_data[0] == ACCOUNT_SHEET_NAME:
             self.logger.error({
                 'msg': 'ColNameError The acquisition column items are different.',
                 'cols': worksheet_data[0],
@@ -78,8 +80,11 @@ class SheetsApi(ClientService):
 
         return users
 
-    def read_mail_templates(self) -> List:
-        """ メール本文の読み込み
+    def read_mail_templates(self, account_name: str) -> List:
+        f""" メール本文の読み込み
+
+        :params
+          account_name(str): For account of the text
 
         Sheet: メールテンプレ
           A: No
@@ -93,7 +98,7 @@ class SheetsApi(ClientService):
 
         worksheet_data = self._read_sheet(open_by_key=OPEN_BY_KEY, sheet_title='メールテンプレ')
 
-        if not worksheet_data[0] == ['ID', '件名', '本文']:
+        if not worksheet_data[0] == MAIL_TEMPLATE:
             self.logger.error({
                 'msg': 'ColNameError The acquisition column items are different.',
                 'cols': worksheet_data[0],
@@ -108,7 +113,7 @@ class SheetsApi(ClientService):
             mail_tmp = {
                 'id': mail_tmp[0],
                 'subject': mail_tmp[1],
-                'mail_text': mail_tmp[2],
+                'mail_text': mail_tmp[2].format(account_name=account_name),
             }
             mail_tmps.append(mail_tmp)
 

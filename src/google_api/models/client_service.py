@@ -6,6 +6,7 @@ from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+from googleapiclient.errors import HttpError
 
 import const
 from config.log_conf import LogConf
@@ -21,13 +22,13 @@ class ClientService(object):
         self.logger = LogConf().get_logger(logger=__file__)
 
     def get_service_gmail_v1(self):
-        """ Gmail API 使用設定
+        """ Create gmail api client
 
         :return:
           Gmail v1 service
         """
         self.logger.info({
-            'msg': 'アクセストークンの取得開始',
+            'msg': 'create gmail api client',
             'func': sys._getframe().f_code.co_name,
         })
         creds = None
@@ -47,14 +48,16 @@ class ClientService(object):
 
             service = build('gmail', 'v1', credentials=creds)
             self.logger.info({
-                'msg': 'アクセストークンの取得完了',
+                'msg': 'Done created gmail api client',
                 'func': sys._getframe().f_code.co_name,
             })
             return service
 
+        except HttpError as error:
+            self.logger.error(F'An error occurred: {error}')
         except Exception as ex:
-            self.logger.info({
-                'msg': 'アクセストークンの取得失敗',
+            self.logger.error({
+                'msg': 'Error create gmail api client',
                 'func': sys._getframe().f_code.co_name,
                 'ex': ex,
             })
@@ -66,7 +69,7 @@ class ClientService(object):
         :return:
         """
         self.logger.info({
-            'msg': 'アクセストークンの取得開始',
+            'msg': 'Create drive api client',
             'func': sys._getframe().f_code.co_name,
         })
         creds = None
@@ -90,7 +93,7 @@ class ClientService(object):
 
             service = build('drive', 'v3', credentials=creds)
             self.logger.info({
-                'msg': 'アクセストークンの取得完了',
+                'msg': 'Done Created drive api client',
                 'func': sys._getframe().f_code.co_name,
             })
 
@@ -98,7 +101,7 @@ class ClientService(object):
 
         except Exception as ex:
             self.logger.error({
-                'msg': 'アクセストークンの取得失敗',
+                'msg': 'Error created drive api client',
                 'func': sys._getframe().f_code.co_name,
                 'ex': ex,
             })

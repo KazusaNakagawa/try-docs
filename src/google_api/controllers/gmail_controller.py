@@ -27,7 +27,7 @@ def send_gmail_attach_file() -> None:
         zip_name=const.ZIP_NAME
     )
     # メール本文の作成・送信
-    mail_templates = sheets_api.read_mail_templates()
+    mail_templates = sheets_api.read_mail_templates(account_name=users[user_id]['account_name'])
     subject = mail_templates[user_id]['subject']
     message_text = mail_templates[user_id]['mail_text']
     message = gmail_api.create_message_attach_file(subject=subject, message_text=message_text)
