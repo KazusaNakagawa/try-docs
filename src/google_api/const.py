@@ -11,6 +11,8 @@ SENDER_ADDRESS = os.environ.get('SENDER_ADDRESS')
 TO_ADDRESS = os.environ.get('TO_ADDRESS')
 
 # SpreadSheet
+ACCOUNT_SHEET_NAME = ['ID', 'アカウント名', 'メールアドレス To', 'zip パスワード']
+MAIL_TEMPLATE = ['ID', '件名', '本文']
 OPEN_BY_KEY = os.environ.get('OPEN_BY_KEY')
 
 # Zip
