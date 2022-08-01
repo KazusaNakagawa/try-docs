@@ -37,9 +37,10 @@ def select_send_gmail_gui(users: list) -> int:
             # if user closes window or clicks cancel
             if event == sg.WIN_CLOSED or event == 'Cancel':
                 break
-            _, user_id = 'You entered ', values[0].split(':')[0]
+            event, user_id = 'You entered ', values[0].split(':')[0]
             if user_id.isnumeric():
                 logger.info({
+                    'event': event,
                     'select user_id': user_id,
                 })
                 window.close()

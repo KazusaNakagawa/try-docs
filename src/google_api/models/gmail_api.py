@@ -12,21 +12,17 @@ from config.log_conf import LogConf
 
 class GmailApi(ClientService):
 
-    def __init__(self, sender, to, zip_dir=None, zip_name=None):
+    def __init__(self, sender, to):
 
         """ gmail operations with the Gmail API
 
         :param
           sender(str): Sender Address
           to(str): To Address
-          zip_dir(str): 添付対象 zip Directory Name
-          zip_name(str): 添付対象 zip Name
         """
         super().__init__()
         self.sender = sender
         self.to = to
-        self.zip_dir = zip_dir
-        self.zip_name = zip_name
         self.service = self.get_service_gmail_v1()
         self.logger = LogConf().get_logger(__file__)
 
@@ -41,10 +37,10 @@ class GmailApi(ClientService):
 
         return {'raw': encode_message.decode()}
 
-    def create_message_attach_file(self, subject, message_text):
+    def create_message_attach_file(self, attach_file_path, subject, message_text):
         """ メール本文の作成 添付ファイルつき """
 
-        msg = self._attach_file()
+        msg = self._attach_file(attach_file_path)
 
         msg['to'] = self.to
         msg['from'] = self.sender
@@ -56,7 +52,8 @@ class GmailApi(ClientService):
 
         return {'raw': encode_message.decode()}
 
-    def _attach_file(self):
+    @classmethod
+    def _attach_file(cls, attach_file_path):
         """ ファイルを添付
 
         :param
@@ -65,8 +62,6 @@ class GmailApi(ClientService):
         :return
           msg(class: email.mime.multipart.MIMEMultipart)
         """
-        attach_file_path = f'{self.zip_dir}/{self.zip_name}'
-
         msg = MIMEMultipart()
         with open(attach_file_path, "rb") as f:
             part = MIMEApplication(
