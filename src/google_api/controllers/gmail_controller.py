@@ -21,7 +21,7 @@ def send_gmail_attach_file() -> None:
     user_id = send_gmail_gui.select_send_gmail_gui(users)
 
     # 添付ファイル選択
-    attach_file = select_file_gui.select_file_gui()
+    attach_files = select_file_gui.select_file_gui()
 
     # zip圧縮: passつき
     # Zip(zip_pass=users[user_id]['zip_pass']).run_zip_compress()
@@ -34,9 +34,8 @@ def send_gmail_attach_file() -> None:
     mail_templates = sheets_api.read_mail_templates(account_name=users[user_id]['account_name'])
     subject = mail_templates[user_id]['subject']
     message_text = mail_templates[user_id]['mail_text']
-    message = gmail_api.create_message_attach_file(
-        attach_file_path=attach_file, subject=subject, message_text=message_text
-    )
+    message = gmail_api.create_message_attach_file(attach_files=attach_files, subject=subject,
+                                                   message_text=message_text)
     gmail_api.send_message(user_id='me', msg=message)
 
 

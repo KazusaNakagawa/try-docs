@@ -9,8 +9,8 @@ def select_file_gui() -> str:
     logger.info({'msg': 'Start Select users to be processed'})
 
     sg.theme(PY_SIMPLE_GUI['theme'])
-    layout = [[sg.Text('Enter 2 files to comare')],
-              [sg.Text('File', size=(8, 1)), sg.Input(), sg.FileBrowse()],
+    layout = [[sg.Text('Enter files to comare')],
+              [sg.Text('File', size=(8, 1)), sg.Input(), sg.FilesBrowse()],
               [sg.Submit(), sg.Cancel()]]
     window = sg.Window('File Compare', layout, font=PY_SIMPLE_GUI['font'])
 
@@ -20,8 +20,9 @@ def select_file_gui() -> str:
             'event': event,
             'select values': values,
         })
+
         window.close()
-        return values[0]
+        return values[0].split(";")
 
     except Exception as ex:
         # TODO: Add Slack Alert

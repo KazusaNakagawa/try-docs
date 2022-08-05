@@ -37,10 +37,10 @@ class GmailApi(ClientService):
 
         return {'raw': encode_message.decode()}
 
-    def create_message_attach_file(self, attach_file_path, subject, message_text):
+    def create_message_attach_file(self, attach_files, subject, message_text):
         """ メール本文の作成 添付ファイルつき """
 
-        msg = self._attach_file(attach_file_path)
+        msg = self._attach_file(attach_files)
 
         msg['to'] = self.to
         msg['from'] = self.sender
@@ -53,7 +53,7 @@ class GmailApi(ClientService):
         return {'raw': encode_message.decode()}
 
     @classmethod
-    def _attach_file(cls, attach_file_path):
+    def _attach_file(cls, attach_files):
         """ ファイルを添付
 
         :param
@@ -63,13 +63,15 @@ class GmailApi(ClientService):
           msg(class: email.mime.multipart.MIMEMultipart)
         """
         msg = MIMEMultipart()
-        with open(attach_file_path, "rb") as f:
-            part = MIMEApplication(
-                f.read(),
-                Name=basename(attach_file_path)
-            )
-        part['Content-Disposition'] = f"attachment; filename={basename(attach_file_path)}"
-        msg.attach(part)
+
+        for attach_file in attach_files:
+            with open(attach_file, "rb") as f:
+                part = MIMEApplication(
+                    f.read(),
+                    Name=basename(attach_file)
+                )
+            part['Content-Disposition'] = f"attachment; filename={basename(attach_file)}"
+            msg.attach(part)
 
         return msg
 

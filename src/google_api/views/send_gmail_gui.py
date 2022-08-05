@@ -16,7 +16,7 @@ def select_send_gmail_gui(users: list) -> int:
     logger = LogConf().get_logger(__file__)
     logger.info({'msg': 'Start Select users to be processed'})
 
-    user_account_names = [f"{idx + 1}: {user['account_name']}" for idx, user in enumerate(users)]
+    user_account_names = [f"{user['id']}: {user['account_name']}" for idx, user in enumerate(users)]
 
     sg.theme(PY_SIMPLE_GUI['theme'])
     # All the stuff inside your window.
