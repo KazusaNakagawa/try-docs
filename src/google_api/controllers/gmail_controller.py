@@ -34,8 +34,11 @@ def send_gmail_attach_file() -> None:
     mail_templates = sheets_api.read_mail_templates(account_name=users[user_id]['account_name'])
     subject = mail_templates[user_id]['subject']
     message_text = mail_templates[user_id]['mail_text']
-    message = gmail_api.create_message_attach_file(attach_files=attach_files, subject=subject,
-                                                   message_text=message_text)
+    message = gmail_api.create_message_attach_file(
+        attach_files=attach_files,
+        subject=subject,
+        message_text=message_text
+    )
     gmail_api.send_message(user_id='me', msg=message)
 
 
