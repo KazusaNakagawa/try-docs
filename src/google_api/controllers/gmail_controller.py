@@ -1,6 +1,9 @@
 import const
 from models.gmail_api import GmailApi
-from views import send_gmail_view
+from views import (
+    send_gmail_gui,
+    select_file_gui,
+)
 from models.zip import Zip
 from models.sheets_api import SheetsApi
 
@@ -15,22 +18,27 @@ def send_gmail_attach_file() -> None:
     sheets_api = SheetsApi()
     users = sheets_api.read_users()
     # 送信アカウントid 取得
-    user_id = send_gmail_view.send_gmail_select_user_console(users)
+    user_id = send_gmail_gui.select_send_gmail_gui(users)
+
+    # 添付ファイル選択
+    attach_files = select_file_gui.select_file_gui()
 
     # zip圧縮: passつき
-    Zip(zip_pass=users[user_id]['zip_pass']).run_zip_compress()
+    # Zip(zip_pass=users[user_id]['zip_pass']).run_zip_compress()
 
     gmail_api = GmailApi(
         sender=users[user_id]['mail_address'],
         to=users[user_id]['mail_address'],
-        zip_dir=const.ZIP_DIR,
-        zip_name=const.ZIP_NAME
     )
     # メール本文の作成・送信
     mail_templates = sheets_api.read_mail_templates(account_name=users[user_id]['account_name'])
     subject = mail_templates[user_id]['subject']
     message_text = mail_templates[user_id]['mail_text']
-    message = gmail_api.create_message_attach_file(subject=subject, message_text=message_text)
+    message = gmail_api.create_message_attach_file(
+        attach_files=attach_files,
+        subject=subject,
+        message_text=message_text
+    )
     gmail_api.send_message(user_id='me', msg=message)
 
 
