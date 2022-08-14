@@ -1,4 +1,5 @@
 import base64
+import re
 
 from apiclient import errors
 from email.mime.text import MIMEText
@@ -12,7 +13,7 @@ from config.log_conf import LogConf
 
 class GmailApi(ClientService):
 
-    def __init__(self, sender, to):
+    def __init__(self, sender=None, to=None):
 
         """ gmail operations with the Gmail API
 
@@ -100,3 +101,53 @@ class GmailApi(ClientService):
 
         :return:
         """
+
+    def receive_gmail(self, max_results=10, query=None) -> list or bool:
+        """Gmail 一覧を取得
+
+        """
+        # メッセージの一覧を取得
+        messages = self.service.users().messages()
+        msg_list = messages.list(userId='me', maxResults=max_results, q=query).execute()
+
+        if msg_list['resultSizeEstimate'] == 0:
+            return False
+
+        receives = []
+
+        # 取得したメッセージの一覧を表示
+        if msg_list['resultSizeEstimate'] == 201:
+            for msg in msg_list['messages']:
+                topid = msg['id']
+                msg = messages.get(userId='me', id=topid).execute()
+
+                # 受信時間を抽出 ex: Sat, 13 Aug 2022 02:04:12 -0700 (PDT)
+                received = msg['payload']['headers'][1]['value']
+                match = re.search(r'[a-zA-Z]{3}, \d{2} [a-zA-Z]{3} \d{4} (\d{2}:\d{2}:\d{2}) -\d{4} \(PDT\)$', received)
+                if match:
+                    received = match.group()
+
+                # TODO: sender, title, subject
+                data = {
+                    'Received': received,
+                    'Delivered-To': msg['payload']['headers'][0]['value'],
+                    'snippet': msg['snippet'],
+                }
+                receives.append(data)
+
+        return receives
+
+    def receive_gmail_threads(self):
+        """Gmail 一覧を取得
+
+        """
+        # メッセージの一覧を取得
+        messages = self.service.users().threads()
+        msg_list = messages.list(userId='me', maxResults=5).execute()
+
+        # 取得したメッセージの一覧を表示
+        for msg in msg_list['threads']:
+            topid = msg['id']
+            msg = messages.get(userId='me', id=topid).execute()
+            print("---")
+            print(msg['messages'][0]['snippet'])
