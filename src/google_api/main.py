@@ -1,8 +1,8 @@
 from controllers import gmail_controller
 from models import gmail_api
 
-if __name__ == '__main__':
-    # gmail_controller.send_gmail_attach_file()
+
+def main_receive_gmail_test():
     ga = gmail_api.GmailApi()
     receives = ga.receive_gmail(10, query='')
 
@@ -16,4 +16,8 @@ if __name__ == '__main__':
             print('-' * 20)
     else:
         print('msg: No search results')
-    # ga.receive_gmail_threads()
+
+
+if __name__ == '__main__':
+    # gmail_controller.send_gmail_attach_file()
+    main_receive_gmail_test()
