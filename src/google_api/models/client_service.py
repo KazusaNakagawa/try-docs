@@ -15,7 +15,10 @@ from config.log_conf import LogConf
 class ClientService(object):
 
     def __init__(self):
-        self.scope = ['https://www.googleapis.com/auth/gmail.send']
+        self.scope = [
+            'https://www.googleapis.com/auth/gmail.send',
+            'https://www.googleapis.com/auth/gmail.readonly',
+        ]
         self.drive_scope = ['https://www.googleapis.com/auth/drive.metadata.readonly']
         self.token_pickle = const.TOKEN_PICKLE
         self.credentials = const.CREDENTIALS
@@ -61,6 +64,7 @@ class ClientService(object):
                 'func': sys._getframe().f_code.co_name,
                 'ex': ex,
             })
+            raise Exception
 
     def get_service_drive_v3(self):
         """ Shows basic usage of the Drive v3 API.
