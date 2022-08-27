@@ -17,7 +17,7 @@ PY_SIMPLE_GUI = {
 }
 
 # SpreadSheet
-ACCOUNT_SHEET_NAME = ['ID', 'アカウント名', 'メールアドレス To', 'zip パスワード']
+ACCOUNT_SHEET_NAME = ['ID', 'アカウント名', 'メールアドレス To', 'zip パスワード', 'メールテンプレートID']
 MAIL_TEMPLATE = ['ID', '件名', '本文']
 OPEN_BY_KEY = os.environ.get('OPEN_BY_KEY')
 
