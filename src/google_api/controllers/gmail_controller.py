@@ -17,8 +17,8 @@ def send_gmail_attach_file() -> None:
     # user一覧読み込む
     sheets_api = SheetsApi()
     users = sheets_api.read_users()
-    # 送信アカウントid 取得
-    user_id = send_gmail_gui.select_send_gmail_gui(users)
+    # 送信アカウントの user 選択
+    user = users[send_gmail_gui.select_send_gmail_gui(users)]
 
     # 添付ファイル選択
     attach_files = select_file_gui.select_file_gui()
@@ -26,19 +26,15 @@ def send_gmail_attach_file() -> None:
     # zip圧縮: passつき
     # Zip(zip_pass=users[user_id]['zip_pass']).run_zip_compress()
 
-    gmail_api = GmailApi(
-        sender=users[user_id]['mail_address'],
-        to=users[user_id]['mail_address'],
-    )
-    # メール本文の作成・送信
-    mail_templates = sheets_api.read_mail_templates(account_name=users[user_id]['account_name'])
-    subject = mail_templates[user_id]['subject']
-    message_text = mail_templates[user_id]['mail_text']
+    gmail_api = GmailApi(sender=user['mail_address'], to=user['mail_address'])
+    # メール本文の作成
+    subject, message_text = sheets_api.read_mail_templates(user=user)
     message = gmail_api.create_message_attach_file(
         attach_files=attach_files,
         subject=subject,
         message_text=message_text
     )
+    # メール送信
     gmail_api.send_message(user_id='me', msg=message)
 
 

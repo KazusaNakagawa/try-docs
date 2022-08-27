@@ -19,5 +19,5 @@ def main_receive_gmail_test():
 
 
 if __name__ == '__main__':
-    # gmail_controller.send_gmail_attach_file()
-    main_receive_gmail_test()
+    gmail_controller.send_gmail_attach_file()
+    # main_receive_gmail_test()
