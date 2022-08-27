@@ -50,6 +50,7 @@ class SheetsApi(ClientService):
           B: アカウント名
           C: メールアドレス To
           D: zipパスワード
+          E: メールテンプレートNo
 
         :return:
           users(List): アカウント一覧
@@ -75,16 +76,17 @@ class SheetsApi(ClientService):
                 'account_name': user[1],
                 'mail_address': user[2],
                 'zip_pass': user[3],
+                'mail_tmp_num': user[4],
             }
             users.append(user)
 
         return users
 
-    def read_mail_templates(self, account_name: str) -> List:
-        f""" メール本文の読み込み
+    def read_mail_templates(self, user: dict) -> tuple[str, str]:
+        """ メール本文の読み込み
 
         :params
-          account_name(str): For account of the text
+          user(dict)
 
         Sheet: メールテンプレ
           A: No
@@ -92,10 +94,8 @@ class SheetsApi(ClientService):
           C: 本文
 
         :return:
-          mail_tmps(List): メールテンプレ
+          subject, message_text(tuple): 件名, 本文
         """
-        mail_tmps = []
-
         worksheet_data = self._read_sheet(open_by_key=OPEN_BY_KEY, sheet_title='メールテンプレ')
 
         if not worksheet_data[0] == MAIL_TEMPLATE:
@@ -106,15 +106,14 @@ class SheetsApi(ClientService):
             raise ColNameError
 
         # 項目行削除
-        worksheet_data.pop(0)
-        for mail_tmp in worksheet_data:
-            if '' in mail_tmp:
-                break
-            mail_tmp = {
-                'id': mail_tmp[0],
-                'subject': mail_tmp[1],
-                'mail_text': mail_tmp[2].format(account_name=account_name),
-            }
-            mail_tmps.append(mail_tmp)
+        # Extracts the specified template and assigns letters
+        mail_tmp = worksheet_data[int(user['mail_tmp_num'])]
+        mail_tmp = {
+            'id': mail_tmp[0],
+            'subject': mail_tmp[1],
+            'mail_text': mail_tmp[2].format(account_name=user['account_name']),
+        }
+        subject = mail_tmp['subject']
+        message_text = mail_tmp['mail_text']
 
-        return mail_tmps
+        return subject, message_text
