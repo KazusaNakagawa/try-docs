@@ -46,7 +46,8 @@
     }
   },
   "root": {
-    "level": "DEBUG",
+    "level": "INFO",
     "handlers": ["console", "time", "errors"]
-  }
+  },
+  "disable_existing_loggers": 0
 }
