@@ -40,9 +40,6 @@ class LogConf(object):
         filename, _ = os.path.splitext(os.path.basename(logger))
         logger = logging.getLogger(filename)
 
-        # log 出力使用可能に設定
-        logger.disabled = False
-
         return logger
 
     def _get_conf(self, conf, sec: str, option: str, format1=None, format2=None):
