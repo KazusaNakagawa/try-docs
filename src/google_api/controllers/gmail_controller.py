@@ -5,6 +5,7 @@ from views import (
     select_file_gui,
 )
 from models.zip import Zip
+from config.log_conf import LogConf
 from models.sheets_api import SheetsApi
 
 
@@ -14,6 +15,10 @@ def send_gmail_attach_file() -> None:
     :return:
       None
     """
+    # log インスタンステスト
+    logger = LogConf().get_logger(__file__)
+    logger.info({'msg': '-------- start  ---------'})
+
     # user一覧読み込む
     sheets_api = SheetsApi()
     users = sheets_api.read_users()
@@ -36,6 +41,7 @@ def send_gmail_attach_file() -> None:
     )
     # メール送信
     gmail_api.send_message(user_id='me', msg=message)
+    logger.info({'msg': '-------- end  ---------'})
 
 
 def send_gmail():
