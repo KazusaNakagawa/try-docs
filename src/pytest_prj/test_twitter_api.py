@@ -29,12 +29,12 @@ def test_gpt_with_mock(mock_twitter_api):
 
 class TestTwitterAPI(TestCase):
     """twitter.TwitterをMockしています。
+    # FIXME: Test did not pass.
 
     mock_twitter_instanceのsearchプロパティをPropertyMockに設定し、[mocked_tweet]を返すようにしています。
     次に、mock_twitterを使用して、mock_twitter_instanceを返すように設定し、get_tweets_with_keyword関数を呼び出しています。
     最後に、期待されるツイートと実際に取得されたツイートを比較しています。
     """
-
     @patch('models.twitter_api.TwitterAPI')
     def test_get_tweets_with_gpt_keyword(self, mock_twitter):
         # Mocked tweet response
