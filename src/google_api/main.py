@@ -1,5 +1,6 @@
 from controllers import gmail_controller
 from models import gmail_api
+from models import custom_search_api
 
 
 def main_receive_gmail_test():
@@ -18,6 +19,12 @@ def main_receive_gmail_test():
         print('msg: No search results')
 
 
+def main_custom_search():
+    csa = custom_search_api.CustomSearchApi()
+    csa.get_search_response('ダイエット')
+
+
 if __name__ == '__main__':
-    gmail_controller.send_gmail_attach_file()
+    # gmail_controller.send_gmail_attach_file()
     # main_receive_gmail_test()
+    main_custom_search()
